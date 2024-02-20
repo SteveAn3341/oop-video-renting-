@@ -21,43 +21,44 @@ while True:
         continue
     print(mode)
 
-    if mode == 1:
-        inventory_list = code_p_video.all_videos()
-        for videos in inventory_list:
-            print(videos)
+    match mode:
+        case 1:
+            inventory_list = code_p_video.all_videos()
+            for videos in inventory_list:
+                print(videos)
 
-    elif mode == 2:
-        customers_dict = code_p_video.all_customers()
-        for customer_id, customer_info in customers_dict.items():
-            print(f"Customer ID: {customer_info['id']}, Name: {customer_info['name']}")
+        case 2:
+            customers_dict = code_p_video.all_customers()
+            for customer_id, customer_info in customers_dict.items():
+                print(f"Customer ID: {customer_info['id']}, Name: {customer_info['name']}")
 
+        case 3:
+            rental_list = code_p_video.all_of_customer_video_rental()
+            for rental in rental_list:
+                print(f"Customer ID: {rental['id']}")
+                if rental['current_video_rentals']:
+                    print("Currently renting:")
+                    for video in rental['current_video_rentals']:
+                        print(f"   - {video}")
+                else:
+                    print("Not currently renting any videos.")
 
-    elif mode == 3:
-        rental_list = code_p_video.all_of_customer_video_rental()
-        for rental in rental_list:
-            print(f"Customer ID: {rental['id']}")
-            if rental['current_video_rentals']:
-                print("Currently renting:")
-                for video in rental['current_video_rentals']:
-                    print(f"   - {video}")
-            else:
-                print("Not currently renting any videos.")
+        case 4:
+            code_p_video.add_new_customer()
 
-    elif mode == 4:
-        code_p_video.add_new_customer()
+        case 5:
+            customer_id = input("Enter customer ID: ")
+            title = str(input("Enter video title: "))
+            code_p_video.renting_video(int(customer_id), title)
 
-    elif mode == 5:
-        customer_id = input("Enter customer ID: ")
-        title = input("Enter video title: ")
-        code_p_video.renting_video(int(customer_id), title)
+        case 6:
+            customer_id = input("Enter customer ID: ")
+            title = str(input("Enter video title: "))
+            code_p_video.return_video(int(customer_id), title)
 
-    elif mode == 6:
-        customer_id = input("Enter customer ID: ")
-        title = input("Enter video title: ")
-        code_p_video.return_video(int(customer_id), title)
+        case 7:
+            print("Exiting the program...")
+            break
 
-    elif mode == 7:
-        print("Exiting the program...")
-        break
-    else:
-        print("Please enter a valid number.")
+        case _:
+            print("Please enter a valid number.")

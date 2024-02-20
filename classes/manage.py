@@ -50,7 +50,7 @@ class Feature:
         current_video_rentals =input("nothing")
         for customer in self.customer:
             if customer.id == id:
-                print("Error: Customer ID already exists")
+                print("Error: Customer ID already have")
                 return
         add_new_customer = Customer(id, account_type, first_name, last_name, current_video_rentals)
         self.customer.append(add_new_customer)
@@ -61,7 +61,7 @@ class Feature:
 
         customer = None
         for person in self.customer:
-            if int(person.id) == customer_id:
+            if int(person.id) == int(customer_id):
                 customer = person
                 break
 
@@ -94,7 +94,7 @@ class Feature:
             return
 
         # Rent the video
-        customer.current_video_rentals.append(title)
+        customer.current_video_rentals += f"/{title}"
         video.copies_available = str(int(video.copies_available) - 1)
         print(f"{title} rented by {customer.first_name} {customer.last_name}")
 
@@ -102,7 +102,7 @@ class Feature:
 
         customer = None
         for person in self.customer:
-            if person.id == customer_id:
+            if int(person.id) == int(customer_id):
                 customer = person
                 break
 
@@ -122,7 +122,7 @@ class Feature:
         for v in self.inventory:
             if v.title == title:
                 video = v
-                video.copies_available += 1
+                video.copies_available = str(int(video.copies_available)+1)
                 break
 
         if not video:
@@ -140,7 +140,7 @@ class Feature:
     #         print(inventor.copies_available)
 
 
-feature = Feature()
+# feature = Feature()
 # print(feature.add_new_customer())
 
 
